@@ -1,0 +1,16 @@
+[Unit]
+Description=SSH Key Manager
+After=network-online.target nss-lookup.target
+Wants=network-online.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sshkm daemon --config /etc/sshkm/config.yaml
+Restart=always
+# When the daemon exits, wait this amount of secs before restarting. Used to prevent StartLimitBurst
+# (5 by default) restarts happening within StartLimitIntervalSec (10 by default) after which systemd
+# would refrain from restarting sshkm anymore.
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

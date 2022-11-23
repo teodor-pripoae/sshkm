@@ -1,0 +1,15 @@
+# List of users for which to copy ssh public keys
+users: []
+# Timeout in seconds for each github request
+timeout: 10
+# Interval in seconds between syncs
+interval: 60
+###
+### Example config:
+
+# github_url: https://github.company.com
+# timeout: 5
+# users:
+#   - name: john
+#   - name: jane
+#     github_username: jane123

@@ -1,0 +1,39 @@
+[package]
+authors = ["Teodor Pripoae <teodor.pripoae@gmail.com>"]
+description = "SSH Key Manager which syncs user SSH keys from GitHub for multiple users"
+edition = "2021"
+license = "BSD-3-Clause"
+name = "sshkm"
+version = "0.1.3"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "sshkm"
+path = "src/main.rs"
+
+[dependencies]
+env_logger = "0.9"
+envy = "0.4"
+etc-passwd = "0.2"
+file-owner = "0.1"
+log = "0.4"
+reqwest = "0.11"
+seahorse = {git = "https://github.com/ksk001100/seahorse.git", rev = "3421b3532c8023b4d48cba7321461b480e54c841"}
+serde = {version = "1.0", features = ["derive"]}
+serde_yaml = "0.9"
+thiserror = "1.0"
+tokio = {version = "1.18.2", features = ["rt", "rt-multi-thread", "macros", "fs"]}
+
+[package.metadata.deb]
+assets = [
+  ["target/release/sshkm", "usr/bin/", "755"],
+  ["systemd/sshkm.service", "etc/systemd/system/", "644"],
+  ["doc/sshkm.8.gz", "usr/share/man/man8/", "644"], # ["doc/sshkm.completions.zsh", "usr/share/zsh/site-functions/_sshkm", "644"],
+  ["doc/config.yaml", "etc/sshkm/", "644"],
+]
+depends = "libc6, libgcc1, systemd"
+extended-description = "sshkm is a tool to manage authorized_keys files for multiple users on a single server."
+maintainer = "Teodor Pripoae <teodor.pripoae@gmail.com>"
+name = "sshkm"
+priority = "optional"
+section = "net"
